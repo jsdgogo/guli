@@ -1,8 +1,8 @@
 package com.guli.edu.controller.admin;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.guli.edu.entity.Teacher;
+import com.guli.edu.query.TeacherQuery;
 import com.guli.edu.service.TeacherService;
 import guli.framework.common.vo.R;
 import io.swagger.annotations.Api;
@@ -45,13 +45,18 @@ public class TeacherAdminController {
             @PathVariable Long page,
 
             @ApiParam(name = "limit", value = "每页记录数", required = true)
-            @PathVariable Long limit
-    ){
+            @PathVariable Long limit,
+
+            @ApiParam(name = "teacherQuery", value = "查询对象", required = false)
+            TeacherQuery teacherQuery){
         Page<Teacher> pageParam = new Page<>(page, limit);
-        teacherService.page(pageParam, null);
+        teacherService.pageQuery(pageParam, teacherQuery);
         List<Teacher> records = pageParam.getRecords();
         long total = pageParam.getTotal();
-        return R.ok().data("total",total).data("rows",records);
+        long size = pageParam.getSize();
+        long current = pageParam.getCurrent();
+        long pages = pageParam.getPages();
+        return R.ok().data("total",total).data("size",size).data("index",current).data("pages",pages).data("teachers",records);
 
     }
 
