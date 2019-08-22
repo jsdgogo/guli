@@ -1,6 +1,6 @@
-package guli.framework.common.vo;
+package com.guli.common.vo;
 
-import guli.framework.common.constants.ResultCodeEnum;
+import com.guli.common.constants.ResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
